@@ -149,3 +149,39 @@ else if (favorite === 7)
 else console.log("Number is not eigther 23 or 7");
 
 if (favorite !== 23) console.log("Why not 23?");
+
+
+
+console.log("\n----------- The Switch Statement ---------------");
+console.clear();
+
+
+const day = 'monday';
+
+switch (day) {
+  case 'monday': // day === 'monday'
+    console.log('Plan course structure');
+    console.log('Go to coding meeting');
+    break;
+
+  case 'tuesday':
+    console.log('Prepare theory videos');
+    break;
+
+  case 'wednesday':
+  case 'thursday':
+    console.log("write coding example");
+    break;
+
+  case 'friday':
+    console.log('Record videoes');
+    break;
+
+  case 'saturday':
+  case 'sunday':
+    console.log('Enjoy the weekend!');
+    break;
+
+  default:
+    console.log('Not a valid day!');
+}
