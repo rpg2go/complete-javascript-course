@@ -171,23 +171,34 @@ console.log(request);
 //         });
 // };
 
+const getJson = function (url, errorMessage = 'There is an error') {
+    return fetch(url).then(response => {
+        console.log(response);
+        if (!response.ok)
+            throw new Error(`${errorMessage} ${response.statusText}`);
+        return response.json();
+    });
+};
+
 const getCountryData = function (country) {
     //country 1
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
-        .then(
-            response => response.json(),
-            err => alert(err)
-        )
+    getJson(
+        `https://restcountries.com/v3.1/name/${country}`,
+        'Error retrieving country data'
+    )
         .then(data => {
             renderCountry(data[0]);
-            const neighbour = data[0].borders;
+
+            const neighbour = data[0].borders[0];
             // console.log(neighbour);
-            if (!neighbour) return;
+            if (!neighbour) throw new Error('Cannot retrieve neigbbour info.');
 
             //country 2
-            return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+            return getJson(
+                `https://restcountries.com/v3.1/name/${neighbour}`,
+                'Error retrieving country data'
+            );
         })
-        .then(response => response.json())
         .then(data => renderCountry(data, 'neighbour'))
         .catch(err => {
             console.error(`There is an error${err}`);
@@ -200,5 +211,5 @@ const getCountryData = function (country) {
 
 btn.addEventListener('click', function () {
     console.log('button was clicked.');
-    getCountryData('portugalhkjhkj');
+    getCountryData('portugal');
 });
