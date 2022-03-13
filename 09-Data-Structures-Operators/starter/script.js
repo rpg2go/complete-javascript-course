@@ -564,6 +564,146 @@ function learning_strings() {
   console.log(typeof new String('jonas'));
   console.log(new String('jonas').slice(1));
   console.log(typeof new String('jonas').slice(1));
+
+  console.log(airline.toLowerCase());
+  console.log(airline.toUpperCase());
+  console.log(airline);
+
+  const passenger = 'jOnAS';
+  const passengerLower = passenger.toLowerCase();
+  const passengerCorrect =
+    passengerLower[0].toUpperCase() + passengerLower.slice(1);
+
+  console.log(passengerCorrect);
+
+  //comparing email
+  const email = 'hello@jonas.io';
+  const loginEmail = '  Hello@Jonas.Io  \n';
+
+  // to lower / upper case
+  if (email === loginEmail.toLowerCase().trim())
+    console.log('Same email address');
+
+  const lowerEmail = loginEmail.toLowerCase();
+  const trimmedEmail = lowerEmail.trim();
+  console.log(lowerEmail);
+  console.log(trimmedEmail);
+
+  const normalizedEmail = loginEmail.toLowerCase().trim();
+  console.log(normalizedEmail);
+
+  //replacing
+  const priceGB = '288,97L';
+  const priceUS = priceGB.replace('L', '$').replace(',', '.');
+  console.log(priceGB, priceUS);
+
+  const announcement =
+    'All passengers come to bording door 23. Boording door 23!';
+  console.log(announcement.replace('door', 'gate').replaceAll('door', 'gate'));
+
+  //regular expression
+  console.log(announcement.replace(/door/g, 'gate'));
+
+  //booleans
+
+  const planeNeo = 'Airbus A320neo';
+  console.log(planeNeo.includes('A320'));
+  console.log(planeNeo.includes('Boening'));
+  console.log(planeNeo.startsWith('A3'));
+  console.log(planeNeo.startsWith('Airb'));
+
+  if (planeNeo.startsWith('Airbus') && planeNeo.endsWith('neo')) {
+    console.log('Part of the NEW Airbus family');
+  }
+
+  const checkBaggage = function (items) {
+    const baggage = items.toLowerCase();
+    if (baggage.includes('knife') || baggage.includes('gun')) {
+      console.log('YOu are not allow on board');
+    } else {
+      console.log('Welcome aboard!');
+    }
+  };
+
+  checkBaggage('I have a laptop, some food and a pocket KNife');
+  checkBaggage('Socks and camera');
+  checkBaggage('Got some snacks and a gun for protection');
+
+  console.log('a+very+nice+string'.split('+'));
+  console.log('Jonas Schmedtmann'.split(' '));
+
+  const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+  console.log(firstName, lastName);
+
+  const newName = ['Mr', firstName, lastName.toUpperCase()].join(' ');
+  console.log(newName);
+
+  const capitalizeName = function (name) {
+    const names = name.split(' ');
+    const namesUpper = [];
+    for (const word of names) {
+      // namesUpper.push(word[0].toUpperCase() + word.slice(1));
+      namesUpper.push(word.replace(word[0], word[0].toUpperCase()));
+    }
+
+    console.log(namesUpper.join(' '));
+  };
+  capitalizeName('jessica ann smith davis');
+
+  //padding
+
+  const message = 'Go to gate 23';
+  console.log(message.padStart(25, '+').padEnd(30, '+'));
+
+  console.log('Jonas'.padStart(25, '+').padEnd(30, '+'));
+
+  const maskCreditCard = function (number) {
+    const string = number + '';
+
+    const last = string.slice(-4);
+    const hiddenString = last.padStart(string.length, '*');
+    console.log(hiddenString);
+    return hiddenString;
+  };
+
+  maskCreditCard(4545456465465456456);
+  maskCreditCard('4545456465465456453124346');
+  maskCreditCard(45454564666346);
+
+  //repeat
+
+  const message2 = 'Bad weather ... All Depaartures Delayed...  ';
+  console.log(message2.repeat(4));
+
+  const planesInLine = function (n) {
+    console.log(`There are ${n} planes in line ${'✈️'.repeat(n)}`);
+  };
+
+  planesInLine(3);
+  planesInLine(5);
+  planesInLine(9);
 }
 
-learning_strings();
+// learning_strings();
+
+const getCode = str => str.slice(0, 3).toUpperCase();
+
+function learning_strings_challenge() {
+  // console.log(flights.split('+'));
+  for (const flight of flights.split('+')) {
+    // console.log(flight.split(';'));
+    const [type, from, to, time] = flight.split(';');
+
+    console.log();
+    const output = `${type.startsWith('_Delayed') ? '🔴' : ''}${type.replaceAll(
+      '_',
+      ' '
+    )} ${getCode(from)} ${getCode(to)} (${time.replace(':', 'h')})`.padStart(
+      36,
+      ' '
+    );
+
+    console.log(output);
+  }
+}
+learning_strings_challenge();
