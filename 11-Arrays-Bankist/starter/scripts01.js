@@ -288,3 +288,69 @@ console.log(overallBalance);
 
 const overallBalance2 = accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0);
 console.log(overallBalance);
+
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners);
+console.log(owners.sort());
+
+console.log(movements);
+// console.log(movements.sort()); //does not work
+
+//return < 0, A, B (keep order)
+//return > 0, B, A (switch order)
+
+//sort ascending
+movements.sort((a, b) => {
+    if (a > b) return 1;
+    if (b > a) return -1;
+});
+console.log(movements);
+
+//sort descending
+movements.sort((a, b) => {
+    if (a > b) return -1;
+    if (b > a) return 11;
+});
+
+//sort ascending
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+//sort descscending
+movements.sort((a, b) => b - a);
+console.log(movements);
+
+const arr2 = [1, 2, 3, 4, 5, 6, 7];
+console.log([1, 3, 4, 5]);
+
+console.log(new Array(1, 3, 4, 6, 6, 7));
+
+//empty arrays + fill method
+const x = new Array(7);
+console.log(x);
+
+// x.map(() => 5);
+// console.log(x);
+
+// console.log(x.fill(3));
+// console.log(x);
+
+console.log(x.fill(4, 3, 5));
+console.log(x);
+
+arr2.fill(23, 2, 6);
+console.log(arr2);
+
+//array.from
+
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+const w = Array.from({ length: 100 }, (_, i) => parseInt(Math.random(0, 100) * 100));
+console.log(w);
+
+const movementsUI = Array.from(document.querySelectorAll('.movements__value'));
+console.log(movementsUI);
