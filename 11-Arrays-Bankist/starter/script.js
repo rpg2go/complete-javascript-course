@@ -84,7 +84,7 @@ const displayMovements = function (movements) {
 
         const html = `
         <div class="movements__row">
-            <div class="movements__type movements__type--${type}">${i + 1}${type}</div>
+            <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
             <div class="movements__value">${mov}💶</div>
         </div>
         `;
@@ -93,9 +93,9 @@ const displayMovements = function (movements) {
     });
 };
 
-const calcDisplayBalance = function (movements) {
-    const balance = movements.reduce((acc, mov) => acc + mov);
-    labelBalance.textContent = `${balance} 💶`;
+const calcDisplayBalance = function (account) {
+    account.balance = account.movements.reduce((acc, mov) => acc + mov);
+    labelBalance.textContent = `${account.balance} 💶`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -128,6 +128,17 @@ const createUserName = function (accs) {
 createUserName(accounts);
 // console.log(accounts);
 
+const updateUI = function (acc) {
+    //Display movements
+    displayMovements(acc.movements);
+
+    //Display balance
+    calcDisplayBalance(acc);
+
+    //Display summary
+    calcDisplaySummary(acc);
+};
+
 // Event listener
 btnLogin.addEventListener('click', function (event) {
     //prevent form from submitted
@@ -148,13 +159,62 @@ btnLogin.addEventListener('click', function (event) {
 
         inputLoginPin.blur();
 
-        //Display movements
-        displayMovements(currentAccount.movements);
-
-        //Display balance
-        calcDisplayBalance(currentAccount.movements);
-
-        //Display summary
-        calcDisplaySummary(currentAccount);
+        //update UI
+        updateUI(currentAccount);
     }
+});
+
+btnLoan.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const amount = Number(inputLoanAmount.value);
+
+    if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+        currentAccount.movements.push(amount);
+        console.log(`loan of ${amount} granted`);
+
+        updateUI(currentAccount);
+
+        inputLoanAmount.value = '';
+    }
+});
+
+btnTransfer.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const amount = Number(inputTransferAmount.value);
+    const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value);
+    console.log(amount, receiverAcc);
+
+    inputTransferAmount.value = inputTransferTo.value = '';
+
+    if (amount > 0 && receiverAcc && currentAccount.balance >= amount && receiverAcc?.username !== currentAccount.username) {
+        console.log('Transfer valid!');
+
+        currentAccount.movements.push(-amount);
+        receiverAcc.movements.push(amount);
+
+        //update UI
+        updateUI(currentAccount);
+    }
+});
+
+btnClose.addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log('Delete');
+
+    const user = accounts.find(acc => acc.username === inputCloseUsername.value);
+    console.log(user);
+
+    if (inputCloseUsername.value === currentAccount.username && currentAccount.pin === Number(inputClosePin.value)) {
+        console.log('User could be deleted');
+
+        const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+        console.log(index);
+
+        accounts.splice(index, 1);
+        containerApp.style.opacity = 0;
+    }
+    inputCloseUsername.value = inputClosePin.value = '';
+    console.log(accounts);
 });

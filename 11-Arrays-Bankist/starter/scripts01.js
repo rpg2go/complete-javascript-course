@@ -236,3 +236,55 @@ console.log(accounts);
 
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
+
+console.log(movements);
+
+//equality
+console.log(movements.includes(-130));
+
+//condition
+console.log(movements.some(mov => mov === -130));
+
+const anyDeposits = movements.some(mov => mov > 3500);
+console.log(anyDeposits);
+
+//every
+console.log(movements);
+console.log(movements.every(mov => mov > 0));
+
+console.log(account4.movements);
+console.log(account4.movements.every(mov => mov > 0));
+
+const deposit = mov => mov > 0;
+console.log(account4.movements.some(deposit));
+console.log(account1.movements.every(deposit));
+console.log(account1.movements.filter(deposit));
+
+const array = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(array);
+console.log(array.flat());
+
+const arrayDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrayDeep);
+console.log(arrayDeep.flat(1)); // only first level
+console.log(arrayDeep.flat(2)); // also the second level
+
+console.log(accounts);
+const accountsMovements = accounts.map(acc => acc.movements);
+console.log(accountsMovements);
+
+const allMovements = accountsMovements.flat();
+console.log(allMovements);
+
+// const overallBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+// console.log(overallBalance);
+
+//flat
+const overallBalance = accounts
+    .map(acc => acc.movements)
+    .flat()
+    .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
+
+const overallBalance2 = accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
