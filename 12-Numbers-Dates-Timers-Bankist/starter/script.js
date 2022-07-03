@@ -251,3 +251,43 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+
+console.log(23 === 23.0);
+
+// based 10 : 0 - 9
+// based 2  : 0 - 1
+
+console.log(0.1 + 0.2); // 0.300000000000000004
+console.log(0.1 + 0.2 === 0.3);
+
+
+//conversion
+console.log(Number(23));
+console.log(+'23');
+
+//parsing integers
+console.log(Number.parseInt('30px', 10));  // -> 30
+console.log(Number.parseInt('e30px', 10)); // -> NaN
+
+//parsing floats
+console.log(Number.parseInt(' 2.5rem '));  // -> 2
+console.log(Number.parseFloat('    2.5rem   ')); // -> 2.5
+
+//checking value is NaN
+console.log(Number.isNaN(20));   // false
+console.log(Number.isNaN('20')); // false
+console.log(Number.isNaN(+'20x')); // true
+console.log(Number.isNaN(23 / 0)); // false
+
+//checkging value is number
+console.log(Number.isFinite(20)); // true
+console.log(Number.isFinite('20')); // false
+console.log(Number.isFinite('20x')); // false
+console.log(Number.isFinite(+'20x')); // false
+console.log(Number.isFinite(20/0)); // false
+
+//checking value is integer
+console.log(Number.isInteger(23.0)) // true
+console.log(Number.isInteger(23.0)) // false
+console.log(Number.isInteger(23 / 0 )) // false
+
