@@ -334,7 +334,7 @@ function menuFadeAnimation() {
 
 // Sticky Bar Navigation
 const initialCoords = section1.getBoundingClientRect();
-console.log(initialCoords);
+// console.log(initialCoords);
 
 function stickyNavigationBar() {
   window.addEventListener('scroll', function (e) {
@@ -366,7 +366,7 @@ const navHeight = nav.getBoundingClientRect().height;
 
 const stickyNav = function (entries) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) {
     nav.classList.add('sticky');
@@ -387,7 +387,7 @@ const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) return;
 
@@ -402,3 +402,32 @@ allSections.forEach(function (section) {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
 });
+
+//Lazing loading images
+const imgTarget = document.querySelectorAll('img[data-src]');
+console.log(imgTarget);
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  // console.log(entry);
+
+  if (!entry.isIntersecting) return;
+
+  //Replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+  // entry.target.classList.remove('lazy-img');
+
+  entry.target.addEventListener('load', function (e) {
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '+100px',
+});
+
+imgTarget.forEach(img => imgObserver.observe(img));
