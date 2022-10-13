@@ -4,12 +4,18 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "parcel ./starter/index.html",
+        "build": "parcel build ./starter/index.html"
     },
     "author": "marius dms",
     "license": "ISC",
     "dependencies": {
+        "core-js": "^3.25.5",
         "leaflet": "^1.8.0",
-        "lodash-es": "^4.17.21"
+        "lodash-es": "^4.17.21",
+        "regenerator-runtime": "^0.13.9"
+    },
+    "devDependencies": {
+        "parcel": "^2.7.0"
     }
 }

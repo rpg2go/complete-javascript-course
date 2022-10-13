@@ -26,27 +26,27 @@ console.log(cart);
 // console.log(data);
 // console.log('Something');
 
-const getLastPost = async function () {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  const data = await res.json();
-  console.log(data);
+// const getLastPost = async function () {
+//   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+//   const data = await res.json();
+//   console.log(data);
 
-  return {
-    title: data.at(-1).title,
-    text: data.at(-1).body,
-  };
-};
+//   return {
+//     title: data.at(-1).title,
+//     text: data.at(-1).body,
+//   };
+// };
 
-//return a promise
-const lastPost = getLastPost();
-console.log(lastPost);
+// //return a promise
+// const lastPost = getLastPost();
+// console.log(lastPost);
 
-// Not very clean
-lastPost.then(last => console.log(last));
+// // Not very clean
+// lastPost.then(last => console.log(last));
 
-// user top level await
-const lastPost2 = await getLastPost();
-console.log(lastPost2);
+// // user top level await
+// const lastPost2 = await getLastPost();
+// console.log(lastPost2);
 
 const ShoppingCart2 = (function () {
   const cart = [];
@@ -87,9 +87,12 @@ console.log(ShoppingCart2.shippingCost);
 // };
 
 // // import in Node.Js
-// const {addToCart} = require('./shoppingCart.js')
+// const {addToCart} = require('./shopping.js')
 
-import cloneDeep from '.././node_modules/lodash-es/cloneDeep.js';
+// import cloneDeep from '.././node_modules/lodash-es/cloneDeep.js';
+
+// import cloneDeep from 'lodash-es';
+import cloneDeep from '.././node_modules/lodash-es';
 
 const state = {
   cart: [
@@ -102,12 +105,37 @@ const state = {
 };
 
 const stateClone = Object.assign({}, state);
-console.log(stateClone);
+console.log("stateClone: " + JSON.stringify(stateClone));
 
 const stateClone2 = cloneDeep(state);
 console.log(stateClone2);
 
 state.user.loggedIn = false;
-console.log(stateClone);
+console.log("stateClone: " + JSON.stringify(stateClone));
+console.log("stateClone2: " + JSON.stringify(stateClone2));
 
-console.log(stateClone2);
+if (module.hot) {
+  module.hot.accept();
+}
+
+class Person {
+  #greeting = 'Hey';
+
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.greeting}, ${this.name}`);
+  }
+}
+
+const jonas = new Person('Jonas');
+
+console.log('Jonas' ?? null);
+
+console.log(cart.find(el => el.quantity >= 2));
+Promise.resolve('Test').then(x => console.log('Test promise'));
+
+// import '../node_modules/core-js/stable';
+import '../node_modules/core-js/stable/array';
+
+//polyfilling async functions
+import '../node_modules/regenerator-runtime/runtime';
